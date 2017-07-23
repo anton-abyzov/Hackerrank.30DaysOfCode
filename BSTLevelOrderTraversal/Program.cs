@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+
 class Node
 {
     public Node left, right;
@@ -17,19 +19,25 @@ class Solution
 {
     static void levelOrder(Node root)
     {
+        var queue = new Queue<Node>();
+
         if (root == null)
             return;
-        Console.Write(root.data + " ");
 
-        //while ()
-        //{
-            
-        //}
+        queue.Enqueue(root);
 
-        levelOrder(root.left);
-        levelOrder(root.right);
+        while (queue.Any())
+        {
+            var queueElement = queue.Dequeue();
+            Console.Write(queueElement.data + " ");
+
+            if (queueElement.left != null)
+                queue.Enqueue(queueElement.left);
+            if (queueElement.right != null)
+                queue.Enqueue(queueElement.right);
+        }
     }
-    
+
     static Node insert(Node root, int data)
     {
         if (root == null)
